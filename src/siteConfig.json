@@ -6,13 +6,8 @@
   "blog": true,
   "iconLinks": [
     {
-      "id": "1728534577186",
-      "icon": "github",
-      "url": "https://github.com/trevortylerlee"
-    },
-    {
       "id": "1728534577187",
-      "icon": "twitter",
+      "icon": "x",
       "url": "https://x.com/frankUwu71426"
     }
   ],
