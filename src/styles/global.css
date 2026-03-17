@@ -303,7 +303,13 @@
       linear-gradient(90deg, rgb(255 255 255 / 0.11), rgb(255 255 255 / 0))
         82% 28% / 10rem 2.1rem no-repeat,
       linear-gradient(90deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0))
-        10% 78% / 11rem 2.7rem no-repeat;
+        10% 78% / 11rem 2.7rem no-repeat,
+      linear-gradient(
+        90deg,
+        rgb(12 19 48 / 0) 42%,
+        rgb(12 19 48 / 0.22) 63%,
+        rgb(12 19 48 / 0.44) 100%
+      );
     opacity: 0.74;
   }
 
@@ -435,10 +441,33 @@
     display: grid;
     gap: 1.75rem;
     align-content: center;
+    padding: clamp(1.25rem, 2vw, 1.9rem);
+    border: 1px solid rgb(255 248 240 / 0.26);
+    border-radius: 2rem;
+    background:
+      linear-gradient(180deg, rgb(8 17 49 / 0.3), rgb(8 17 49 / 0.52)),
+      rgb(255 255 255 / 0.05);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.16),
+      0 18px 44px rgb(8 14 38 / 0.16);
+    backdrop-filter: blur(12px);
+  }
+
+  .hero-sidebar::before {
+    position: absolute;
+    inset: 0.9rem auto 0.9rem 0.9rem;
+    width: 1px;
+    content: "";
+    background: linear-gradient(
+      180deg,
+      rgb(255 248 240 / 0.48),
+      rgb(255 248 240 / 0.06)
+    );
   }
 
   .identity-card {
     color: rgb(255 248 240);
+    text-shadow: 0 2px 18px rgb(6 10 28 / 0.2);
   }
 
   .identity-card__eyebrow,
@@ -491,6 +520,10 @@
     font-size: 1rem;
     line-height: 1.7;
     color: rgb(255 248 240 / 0.92);
+  }
+
+  .identity-card__meta p {
+    max-width: 32rem;
   }
 
   .identity-card__access {
@@ -582,6 +615,10 @@
   .terminal-links {
     display: grid;
     gap: 0.8rem;
+  }
+
+  .section-kicker {
+    text-shadow: 0 2px 14px rgb(6 10 28 / 0.18);
   }
 
   .command-grid {
@@ -897,6 +934,15 @@
       bottom: 1.4rem;
       right: 1.2rem;
     }
+
+    .hero-sidebar {
+      padding: 1.1rem;
+      border-radius: 1.5rem;
+    }
+
+    .hero-sidebar::before {
+      inset: 0.8rem auto 0.8rem 0.8rem;
+    }
   }
 
   @media (prefers-color-scheme: dark) {
@@ -913,6 +959,16 @@
       border-color: rgb(36 49 98);
       background: rgb(12 19 41 / 0.84);
       box-shadow: 0 28px 60px rgb(0 0 0 / 0.24);
+    }
+
+    .hero-sidebar {
+      border-color: rgb(176 190 247 / 0.18);
+      background:
+        linear-gradient(180deg, rgb(7 12 31 / 0.46), rgb(7 12 31 / 0.72)),
+        rgb(255 255 255 / 0.03);
+      box-shadow:
+        inset 0 1px 0 rgb(255 255 255 / 0.08),
+        0 22px 50px rgb(0 0 0 / 0.28);
     }
 
     .command-link {
