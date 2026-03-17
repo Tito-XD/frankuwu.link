@@ -1,0 +1,55 @@
+---
+const artworkSlots = [
+  {
+    status: "PRIMARY",
+    eyebrow: "Artwork Archive // 01",
+    title: "Feature composition placeholder",
+    description:
+      "This wide slot is ready for the first hero artwork or a stitched collage once you start dropping full images into the reserved asset folder.",
+  },
+  {
+    status: "QUEUE",
+    eyebrow: "Artwork Archive // 02",
+    title: "Secondary study panel",
+    description:
+      "Useful for sketches, process crops, or a zoomed detail that supports the main work without turning the homepage into a full gallery.",
+  },
+  {
+    status: "PATH",
+    eyebrow: "Asset Route",
+    title: "Reserved import location",
+    description:
+      "Use the path below for future images. After that, we can switch these placeholders to real asset imports and tune the mosaic.",
+  },
+];
+---
+
+<section class="artwork-section" id="artwork">
+  <div class="artwork-heading">
+    <p class="section-kicker">Artwork Archive</p>
+    <h2>Portfolio space first, writing second.</h2>
+    <p>
+      I kept the homepage centered on visual presentation and left the blog off
+      the front page. Once you add source files, we can decide whether the first
+      fold should feature one image, a triptych, or a denser collage.
+    </p>
+    <span class="asset-path">src/assets/artworks/</span>
+  </div>
+
+  <div class="artwork-grid">
+    {
+      artworkSlots.map((slot, index) => (
+        <article class:list={["art-card", index === 0 && "art-card--feature"]}>
+          <div class="art-card__visual">
+            <span class="art-card__badge">{slot.status}</span>
+          </div>
+          <div class="art-card__content">
+            <p class="section-kicker">{slot.eyebrow}</p>
+            <h3>{slot.title}</h3>
+            <p>{slot.description}</p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>

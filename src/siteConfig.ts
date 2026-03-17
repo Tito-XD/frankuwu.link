@@ -3,6 +3,7 @@ import siteConfigJson from "./siteConfig.json";
 export interface SiteConfiguration {
   name: string;
   bio: string;
+  locale: string;
   profilePicture: string;
   url: string;
   blog: boolean;

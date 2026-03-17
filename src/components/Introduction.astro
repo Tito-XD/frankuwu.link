@@ -1,25 +1,36 @@
 ---
-import { Image } from "astro:assets";
-
 import { SITE } from "@/siteConfig";
-
-import profilePicture from "@/assets/profile-picture.jpg";
 ---
 
-<div class="mt-8 py-4">
-  <Image
-    src={profilePicture}
-    alt={SITE.name}
-    height={256}
-    width={256}
-    loading="eager"
-    draggable="false"
-    class="mx-auto size-32 rounded-full"
-  />
-  <h1 class="mt-4 text-center text-3xl font-semibold">{SITE.name}</h1>
-  <p
-    class="mt-1 text-balance text-center text-sm text-lightModeForegroundMuted dark:text-darkModeForegroundMuted"
-  >
-    {SITE.bio}
-  </p>
+<div class="identity-card">
+  <p class="identity-card__eyebrow">User ID</p>
+  <h1 class="identity-card__name">{SITE.name}</h1>
+  <div class="identity-card__rule"></div>
+
+  <div class="identity-card__meta">
+    <div>
+      <span class="identity-card__label">Access Note</span>
+      <p>{SITE.bio}</p>
+    </div>
+
+    <div>
+      <span class="identity-card__label">Current Focus</span>
+      <p>
+        Portfolio-first landing page for artworks, process fragments, and future
+        visual experiments.
+      </p>
+    </div>
+
+    <div class="identity-card__access">
+      <span class="identity-card__label">Password</span>
+      <div class="identity-card__mask" aria-hidden="true">
+        <div class="identity-card__mask-bar"></div>
+        <span class="identity-card__lock">O</span>
+      </div>
+      <p class="identity-card__hint">
+        Direct portfolio images can slot in later without changing the overall
+        frame language.
+      </p>
+    </div>
+  </div>
 </div>

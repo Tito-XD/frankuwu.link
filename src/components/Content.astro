@@ -1,23 +1,104 @@
 ---
+import { Image } from "astro:assets";
+
 import { SITE } from "@/siteConfig";
 
-import Introduction from "@/components/Introduction.astro";
-import IconLink from "@/components/IconLink.astro";
+import ArtworkDeck from "@/components/ArtworkDeck.astro";
 import CustomLink from "@/components/CustomLink.astro";
+import IconLink from "@/components/IconLink.astro";
+import Introduction from "@/components/Introduction.astro";
+
+import profilePicture from "@/assets/profile-picture.jpg";
+
+const diagnostics = [
+  "STR: 74%",
+  "WEP: STICK",
+  "DEF: NONE",
+  "DATASET: AWAITING ARTWORK",
+];
 ---
 
-<Introduction />
-<ul class="flex justify-center gap-4 py-12">
-  {
-    SITE.iconLinks.map((link) => {
-      return <IconLink url={link.url} icon={link.icon} />;
-    })
-  }
-</ul>
-<ul class="grid gap-y-6 pb-12 pt-4">
-  {
-    SITE.customLinks.map((link) => {
-      return <CustomLink url={link.url}>{link.title}</CustomLink>;
-    })
-  }
-</ul>
+<section class="portfolio-shell">
+  <div class="hud-frame hud-frame--outer" aria-hidden="true"></div>
+  <div class="hud-frame hud-frame--inner" aria-hidden="true"></div>
+
+  <div class="shell-topbar">
+    <div>
+      <div class="status-cluster" aria-hidden="true">
+        <span class="status-pill">SYNC</span>
+        <span class="status-pill">GRID</span>
+        <span class="status-pill">WORLD</span>
+        <span class="status-dot"></span>
+      </div>
+      <p class="system-note">TERMINAL MODEL: F-04 POLAR UNIT</p>
+    </div>
+
+    <div class="status-clock" aria-label="interface status">
+      <span class="status-clock__stamp">ART.PORT</span>
+      <span class="status-clock__mark" aria-hidden="true"></span>
+    </div>
+  </div>
+
+  <section class="hero-panel">
+    <div class="hero-panel__halo hero-panel__halo--large" aria-hidden="true"></div>
+    <div class="hero-panel__halo hero-panel__halo--small" aria-hidden="true"></div>
+
+    <div class="hero-grid">
+      <div class="scan-module">
+        <div class="scan-module__frame">
+          <div class="scan-module__portrait">
+            <Image
+              src={profilePicture}
+              alt={SITE.name}
+              width={320}
+              height={320}
+              loading="eager"
+              draggable="false"
+              class="scan-module__image"
+            />
+          </div>
+        </div>
+        <p class="scan-module__title">FACIAL RECOGNITION</p>
+        <p class="scan-module__sub">
+          Artwork carrier online. Future image sets can be woven into this shell
+          once you drop them into the reserved asset path.
+        </p>
+      </div>
+
+      <div class="hero-sidebar">
+        <Introduction />
+
+        {
+          SITE.iconLinks.length ? (
+            <ul class="social-grid">
+              {SITE.iconLinks.map((link) => (
+                <IconLink url={link.url} icon={link.icon} />
+              ))}
+            </ul>
+          ) : null
+        }
+
+        {
+          SITE.customLinks.length ? (
+            <div class="terminal-links">
+              <p class="section-kicker">Open Channels</p>
+              <ul class="command-grid">
+                {SITE.customLinks.map((link) => (
+                  <CustomLink url={link.url}>{link.title}</CustomLink>
+                ))}
+              </ul>
+            </div>
+          ) : null
+        }
+      </div>
+    </div>
+
+    <div class="hero-panel__fingerprint" aria-hidden="true"></div>
+  </section>
+
+  <ArtworkDeck />
+
+  <div class="diagnostic-bar" aria-label="diagnostic notes">
+    {diagnostics.map((item) => <span>{item}</span>)}
+  </div>
+</section>
