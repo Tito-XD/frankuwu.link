@@ -48,13 +48,14 @@ const diagnostics = [
         <div class="scan-module__frame">
           <div class="scan-module__portrait">
             <img
-              src="/avatar-frank-tiger.svg"
+              src="/Avatar.jpg"
               alt={SITE.name}
               width="320"
               height="320"
               loading="eager"
               draggable="false"
               class="scan-module__image"
+              onerror="this.onerror=null;this.src='/avatar-frank-tiger.svg';"
             />
           </div>
         </div>
@@ -109,28 +110,58 @@ const diagnostics = [
   const islands = document.querySelectorAll("[data-liquid-island]");
 
   for (const island of islands) {
+    let frame = null;
+    let currentX = 50;
+    let currentY = 50;
+    let currentTiltX = 0;
+    let currentTiltY = 0;
+    let targetX = 50;
+    let targetY = 50;
+    let targetTiltX = 0;
+    let targetTiltY = 0;
+
+    const animate = () => {
+      currentX += (targetX - currentX) * 0.1;
+      currentY += (targetY - currentY) * 0.1;
+      currentTiltX += (targetTiltX - currentTiltX) * 0.08;
+      currentTiltY += (targetTiltY - currentTiltY) * 0.08;
+
+      island.style.setProperty("--glow-x", `${currentX}%`);
+      island.style.setProperty("--glow-y", `${currentY}%`);
+      island.style.setProperty("--tilt-x", `${currentTiltX}deg`);
+      island.style.setProperty("--tilt-y", `${currentTiltY}deg`);
+
+      const moving =
+        Math.abs(targetX - currentX) > 0.02 ||
+        Math.abs(targetY - currentY) > 0.02 ||
+        Math.abs(targetTiltX - currentTiltX) > 0.02 ||
+        Math.abs(targetTiltY - currentTiltY) > 0.02;
+
+      frame = moving ? requestAnimationFrame(animate) : null;
+    };
+
+    const start = () => {
+      if (frame === null) frame = requestAnimationFrame(animate);
+    };
+
     island.addEventListener("pointermove", (event) => {
       const rect = island.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width) * 100;
-      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      const ratioX = (event.clientX - rect.left) / rect.width;
+      const ratioY = (event.clientY - rect.top) / rect.height;
 
-      island.style.setProperty("--glow-x", `${x}%`);
-      island.style.setProperty("--glow-y", `${y}%`);
-      island.style.setProperty(
-        "--tilt-x",
-        `${((event.clientY - rect.top) / rect.height - 0.5) * -5}deg`,
-      );
-      island.style.setProperty(
-        "--tilt-y",
-        `${((event.clientX - rect.left) / rect.width - 0.5) * 7}deg`,
-      );
+      targetX = ratioX * 100;
+      targetY = ratioY * 100;
+      targetTiltX = (ratioY - 0.5) * -3.8;
+      targetTiltY = (ratioX - 0.5) * 5.2;
+      start();
     });
 
     island.addEventListener("pointerleave", () => {
-      island.style.removeProperty("--glow-x");
-      island.style.removeProperty("--glow-y");
-      island.style.removeProperty("--tilt-x");
-      island.style.removeProperty("--tilt-y");
+      targetX = 50;
+      targetY = 50;
+      targetTiltX = 0;
+      targetTiltY = 0;
+      start();
     });
   }
 </script>
