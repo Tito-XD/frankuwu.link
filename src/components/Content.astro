@@ -39,7 +39,7 @@ const diagnostics = [
     </div>
   </div>
 
-  <section class="hero-panel">
+  <section class="hero-panel liquid-island liquid-island--hero" data-liquid-island>
     <div class="hero-panel__halo hero-panel__halo--large" aria-hidden="true"></div>
     <div class="hero-panel__halo hero-panel__halo--small" aria-hidden="true"></div>
 
@@ -104,3 +104,33 @@ const diagnostics = [
     {diagnostics.map((item) => <span>{item}</span>)}
   </div>
 </section>
+
+<script>
+  const islands = document.querySelectorAll("[data-liquid-island]");
+
+  for (const island of islands) {
+    island.addEventListener("pointermove", (event) => {
+      const rect = island.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+      island.style.setProperty("--glow-x", `${x}%`);
+      island.style.setProperty("--glow-y", `${y}%`);
+      island.style.setProperty(
+        "--tilt-x",
+        `${((event.clientY - rect.top) / rect.height - 0.5) * -5}deg`,
+      );
+      island.style.setProperty(
+        "--tilt-y",
+        `${((event.clientX - rect.left) / rect.width - 0.5) * 7}deg`,
+      );
+    });
+
+    island.addEventListener("pointerleave", () => {
+      island.style.removeProperty("--glow-x");
+      island.style.removeProperty("--glow-y");
+      island.style.removeProperty("--tilt-x");
+      island.style.removeProperty("--tilt-y");
+    });
+  }
+</script>

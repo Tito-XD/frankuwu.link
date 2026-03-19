@@ -10,9 +10,18 @@ const socialFeeds = [
       "Furry art, Splatoon energy, drawing and design practice, plus small playful things in progress.",
     meta: ["503 posts", "3K followers", "246 following", "7K likes"],
     notes: [
-      "来一起滑雪吧 : 深井南极冰",
-      "X #Splatoon3",
-      "玩玩 paper",
+      {
+        label: "来一起滑雪吧 : 深井南极冰",
+        url: "https://x.com/FrankUwu71426",
+      },
+      {
+        label: "X #Splatoon3",
+        url: "https://x.com/FrankUwu71426",
+      },
+      {
+        label: "玩玩 paper",
+        url: "https://x.com/FrankUwu71426",
+      },
     ],
     source: "verified snapshot",
   },
@@ -23,13 +32,20 @@ const socialFeeds = [
     summary:
       "Short-form art posts, playful updates, and illustration-side experiments connected to the same-name account linked from X.",
     meta: ["same-name account", "art notes", "process drops"],
-    notes: SITE.customLinks.map((link) => link.title),
+    notes: SITE.customLinks.map((link) => ({
+      label: link.title,
+      url: link.url,
+    })),
     source: "linked profile",
   },
 ];
 ---
 
-<section class="signal-section" id="signals">
+<section
+  class="signal-section liquid-island liquid-island--signals"
+  id="signals"
+  data-liquid-island
+>
   <div class="signal-heading">
     <p class="section-kicker">Glass Signals</p>
     <h2>Recent traces from the linked profiles.</h2>
@@ -67,10 +83,15 @@ const socialFeeds = [
 
           <div class="signal-card__notes">
             {feed.notes.map((item) => (
-              <div class="signal-note">
+              <a
+                href={item.url}
+                class="signal-note"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <span class="signal-note__dot" aria-hidden="true"></span>
-                <p>{item}</p>
-              </div>
+                <p>{item.label}</p>
+              </a>
             ))}
           </div>
 
