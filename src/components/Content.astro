@@ -11,30 +11,33 @@ import Introduction from "@/components/Introduction.astro";
 import profilePicture from "@/assets/profile-picture.jpg";
 
 const diagnostics = [
-  "STR: 74%",
-  "WEP: STICK",
-  "DEF: NONE",
-  "DATASET: AWAITING ARTWORK",
+  "MOOD: SOFT GLOW",
+  "STATE: DRAFT MODE",
+  "MEDIA: ARTWORK READY",
+  "SYNC: LOCAL PREVIEW",
 ];
 ---
 
 <section class="portfolio-shell">
+  <div class="ambient-orb ambient-orb--one" aria-hidden="true"></div>
+  <div class="ambient-orb ambient-orb--two" aria-hidden="true"></div>
+  <div class="ambient-orb ambient-orb--three" aria-hidden="true"></div>
   <div class="hud-frame hud-frame--outer" aria-hidden="true"></div>
   <div class="hud-frame hud-frame--inner" aria-hidden="true"></div>
 
   <div class="shell-topbar">
     <div>
       <div class="status-cluster" aria-hidden="true">
-        <span class="status-pill">SYNC</span>
-        <span class="status-pill">GRID</span>
-        <span class="status-pill">WORLD</span>
+        <span class="status-pill">MUSE</span>
+        <span class="status-pill">GLASS</span>
+        <span class="status-pill">GLOW</span>
         <span class="status-dot"></span>
       </div>
-      <p class="system-note">TERMINAL MODEL: F-04 POLAR UNIT</p>
+      <p class="system-note">LIQUID SHELL: LOCAL PREVIEW ONLY</p>
     </div>
 
     <div class="status-clock" aria-label="interface status">
-      <span class="status-clock__stamp">ART.PORT</span>
+      <span class="status-clock__stamp">soft shell</span>
       <span class="status-clock__mark" aria-hidden="true"></span>
     </div>
   </div>
@@ -58,10 +61,10 @@ const diagnostics = [
             />
           </div>
         </div>
-        <p class="scan-module__title">FACIAL RECOGNITION</p>
+        <p class="scan-module__title">Liquid Portrait</p>
         <p class="scan-module__sub">
-          Artwork carrier online. Future image sets can be woven into this shell
-          once you drop them into the reserved asset path.
+          A softer glass treatment for the homepage shell. Future artwork sets
+          can still slot into the same reserved asset path.
         </p>
       </div>
 
@@ -81,7 +84,7 @@ const diagnostics = [
         {
           SITE.customLinks.length ? (
             <div class="terminal-links">
-              <p class="section-kicker">Open Channels</p>
+              <p class="section-kicker">Open Surface</p>
               <ul class="command-grid">
                 {SITE.customLinks.map((link) => (
                   <CustomLink url={link.url}>{link.title}</CustomLink>
