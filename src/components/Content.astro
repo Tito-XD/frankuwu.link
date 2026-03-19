@@ -1,20 +1,17 @@
 ---
-import { Image } from "astro:assets";
-
 import { SITE } from "@/siteConfig";
 
 import ArtworkDeck from "@/components/ArtworkDeck.astro";
 import CustomLink from "@/components/CustomLink.astro";
 import IconLink from "@/components/IconLink.astro";
 import Introduction from "@/components/Introduction.astro";
-
-import profilePicture from "@/assets/profile-picture.jpg";
+import SocialSignals from "@/components/SocialSignals.astro";
 
 const diagnostics = [
-  "MOOD: SOFT GLOW",
-  "STATE: DRAFT MODE",
-  "MEDIA: ARTWORK READY",
-  "SYNC: LOCAL PREVIEW",
+  "STR: READY",
+  "WEP: STICK",
+  "DEC: CLEAN",
+  "DATASET: LOCAL",
 ];
 ---
 
@@ -28,16 +25,16 @@ const diagnostics = [
   <div class="shell-topbar">
     <div>
       <div class="status-cluster" aria-hidden="true">
-        <span class="status-pill">MUSE</span>
-        <span class="status-pill">GLASS</span>
-        <span class="status-pill">GLOW</span>
+        <span class="status-pill">SCAN</span>
+        <span class="status-pill">LINK</span>
+        <span class="status-pill">WEB</span>
         <span class="status-dot"></span>
       </div>
-      <p class="system-note">LIQUID SHELL: LOCAL PREVIEW ONLY</p>
+      <p class="system-note">TERMINAL MODEL: LOCAL PROFILE NODE</p>
     </div>
 
     <div class="status-clock" aria-label="interface status">
-      <span class="status-clock__stamp">soft shell</span>
+      <span class="status-clock__stamp">NODE-01</span>
       <span class="status-clock__mark" aria-hidden="true"></span>
     </div>
   </div>
@@ -50,21 +47,21 @@ const diagnostics = [
       <div class="scan-module">
         <div class="scan-module__frame">
           <div class="scan-module__portrait">
-            <Image
-              src={profilePicture}
+            <img
+              src="/avatar-frank-tiger.svg"
               alt={SITE.name}
-              width={320}
-              height={320}
+              width="320"
+              height="320"
               loading="eager"
               draggable="false"
               class="scan-module__image"
             />
           </div>
         </div>
-        <p class="scan-module__title">Liquid Portrait</p>
+        <p class="scan-module__title">Facial Archive</p>
         <p class="scan-module__sub">
-          A softer glass treatment for the homepage shell. Future artwork sets
-          can still slot into the same reserved asset path.
+          Primary portrait slot for the homepage shell. The scan frame stays
+          clean, so future image swaps will not collide with decorative copy.
         </p>
       </div>
 
@@ -84,7 +81,7 @@ const diagnostics = [
         {
           SITE.customLinks.length ? (
             <div class="terminal-links">
-              <p class="section-kicker">Open Surface</p>
+              <p class="section-kicker">Open Channels</p>
               <ul class="command-grid">
                 {SITE.customLinks.map((link) => (
                   <CustomLink url={link.url}>{link.title}</CustomLink>
@@ -98,6 +95,8 @@ const diagnostics = [
 
     <div class="hero-panel__fingerprint" aria-hidden="true"></div>
   </section>
+
+  <SocialSignals />
 
   <ArtworkDeck />
 

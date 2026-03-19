@@ -1,0 +1,82 @@
+---
+import { SITE } from "@/siteConfig";
+
+const socialFeeds = [
+  {
+    platform: "X / Archive Feed",
+    handle: "@FrankUwu71426",
+    url: "https://x.com/FrankUwu71426",
+    summary:
+      "Furry art, Splatoon energy, drawing and design practice, plus small playful things in progress.",
+    meta: ["503 posts", "3K followers", "246 following", "7K likes"],
+    notes: [
+      "来一起滑雪吧 : 深井南极冰",
+      "X #Splatoon3",
+      "玩玩 paper",
+    ],
+    source: "verified snapshot",
+  },
+  {
+    platform: "Xiaohongshu / Linked Profile",
+    handle: "Frank uwu",
+    url: "https://www.xiaohongshu.com/user/profile/623d64d600000000100067bb",
+    summary:
+      "Short-form art posts, playful updates, and illustration-side experiments connected to the same-name account linked from X.",
+    meta: ["same-name account", "art notes", "process drops"],
+    notes: SITE.customLinks.map((link) => link.title),
+    source: "linked profile",
+  },
+];
+---
+
+<section class="signal-section" id="signals">
+  <div class="signal-heading">
+    <p class="section-kicker">Glass Signals</p>
+    <h2>Recent traces from the linked profiles.</h2>
+    <p>
+      I pulled the profile cues that were easy to verify and turned them into a
+      cleaner signal board, so the site hints at the live accounts without
+      making the homepage feel like a crowded embed wall.
+    </p>
+  </div>
+
+  <div class="signal-grid">
+    {
+      socialFeeds.map((feed) => (
+        <article class="signal-card">
+          <div class="signal-card__header">
+            <div>
+              <p class="section-kicker">{feed.platform}</p>
+              <h3>{feed.handle}</h3>
+            </div>
+            <a
+              href={feed.url}
+              class="signal-card__cta"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open
+            </a>
+          </div>
+
+          <p class="signal-card__summary">{feed.summary}</p>
+
+          <ul class="signal-card__meta">
+            {feed.meta.map((item) => <li>{item}</li>)}
+          </ul>
+
+          <div class="signal-card__notes">
+            {feed.notes.map((item) => (
+              <div class="signal-note">
+                <span class="signal-note__dot" aria-hidden="true"></span>
+                <p>{item}</p>
+              </div>
+            ))}
+          </div>
+
+          <p class="signal-card__source">Source: {feed.source}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

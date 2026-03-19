@@ -1,35 +1,38 @@
 ---
 import { SITE } from "@/siteConfig";
+
+const displayName = SITE.name.replace(/(?:'s)?\s*link\s*space/i, "").trim();
 ---
 
 <div class="identity-card">
-  <p class="identity-card__eyebrow">Profile Surface</p>
-  <h1 class="identity-card__name">{SITE.name}</h1>
+  <p class="identity-card__eyebrow">User ID</p>
+  <h1 class="identity-card__name">{displayName || SITE.name}</h1>
   <div class="identity-card__rule"></div>
 
   <div class="identity-card__meta">
     <div>
-      <span class="identity-card__label">About</span>
+      <span class="identity-card__label">Identity Note</span>
       <p>{SITE.bio}</p>
     </div>
 
     <div>
       <span class="identity-card__label">Current Focus</span>
       <p>
-        A portfolio-first landing page for artworks, process fragments, and a
-        gentler visual atmosphere.
+        A portfolio-first landing page for artworks, motion fragments, and a
+        cleaner interface shell inspired by archival terminal graphics.
       </p>
     </div>
 
     <div class="identity-card__access">
-      <span class="identity-card__label">Shell Note</span>
-      <div class="identity-card__mask" aria-hidden="true">
-        <div class="identity-card__mask-bar"></div>
-        <span class="identity-card__lock">O</span>
+      <span class="identity-card__label">Access Note</span>
+      <div class="identity-card__flags" aria-label="interface notes">
+        <span class="identity-card__flag">Clean Copy</span>
+        <span class="identity-card__flag">Local Preview</span>
+        <span class="identity-card__flag">No Placeholder</span>
       </div>
       <p class="identity-card__hint">
-        The layout stays ready for future image drops without losing this glass
-        framing system.
+        Decorative labels stay separated on purpose, so nothing stacks into
+        unreadable filler text when the layout gets denser later on.
       </p>
     </div>
   </div>
