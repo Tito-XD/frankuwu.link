@@ -1,0 +1,81 @@
+---
+import { Image } from "astro:assets";
+
+const dailyImages = import.meta.glob("../assets/daily-30/*.{png,jpg,jpeg,webp}", {
+  eager: true,
+  import: "default",
+});
+
+const dailyEntries = Object.entries(dailyImages)
+  .map(([path, image]) => {
+    const match = path.match(/(\d+)/);
+    const day = match ? Number(match[1]) : 0;
+
+    return {
+      day,
+      image,
+      label: `Day ${String(day).padStart(2, "0")}`,
+    };
+  })
+  .filter((entry) => entry.day > 0)
+  .sort((a, b) => b.day - a.day);
+
+const latest = dailyEntries[0];
+---
+
+{
+  latest ? (
+    <section class="daily-design">
+      <div class="daily-design__header">
+        <p class="section-kicker">Daily Design</p>
+        <h2>{latest.label}</h2>
+        <p>
+          Latest check-in stays in front, while the earlier day peeks out behind
+          it so visitors know there is a trail to flip through.
+        </p>
+      </div>
+
+      <div class="daily-design__viewport">
+        <div class="daily-design__track">
+          {dailyEntries.map((entry, index) => (
+            <article
+              class:list={[
+                "daily-card",
+                index === 0 && "daily-card--latest",
+                index === 1 && "daily-card--peek",
+              ]}
+            >
+              <div class="daily-card__visual">
+                <Image
+                  src={entry.image}
+                  alt={`${entry.label} design check-in`}
+                  width={900}
+                  height={900}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  class="daily-card__image"
+                />
+              </div>
+
+              <div class="daily-card__meta">
+                <span class="daily-card__badge">
+                  {index === 0 ? "Latest Drop" : "Archive Peek"}
+                </span>
+                <h3>{entry.label}</h3>
+                <p>
+                  {index === 0
+                    ? "Freshest daily design pinned up front."
+                    : "Pull sideways to keep moving backward through the run."}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="daily-design__footer">
+        <span>{dailyEntries.length} days loaded</span>
+        <span>scroll sideways for older drops</span>
+      </div>
+    </section>
+  ) : null
+}

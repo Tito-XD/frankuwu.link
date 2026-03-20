@@ -3,6 +3,7 @@ import { SITE } from "@/siteConfig";
 
 import ArtworkDeck from "@/components/ArtworkDeck.astro";
 import CustomLink from "@/components/CustomLink.astro";
+import DailyDesign from "@/components/DailyDesign.astro";
 import IconLink from "@/components/IconLink.astro";
 import Introduction from "@/components/Introduction.astro";
 import SocialSignals from "@/components/SocialSignals.astro";
@@ -92,6 +93,8 @@ const diagnostics = [
           ) : null
         }
       </div>
+
+      <DailyDesign />
     </div>
 
     <div class="hero-panel__fingerprint" aria-hidden="true"></div>
