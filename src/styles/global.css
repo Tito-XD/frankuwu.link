@@ -578,7 +578,7 @@
     position: relative;
     z-index: 1;
     display: grid;
-    gap: 0.45rem;
+    gap: 0.3rem;
     padding-inline: 0.2rem;
   }
 
@@ -588,12 +588,6 @@
     font-size: clamp(1.8rem, 3vw, 2.8rem);
     line-height: 0.96;
     letter-spacing: -0.03em;
-  }
-
-  .daily-design__header p:last-child {
-    margin: 0;
-    color: rgb(190 210 238);
-    line-height: 1.68;
   }
 
   .daily-design__viewport {
@@ -635,20 +629,23 @@
   .daily-card__visual {
     position: relative;
     overflow: hidden;
+    display: grid;
+    place-items: center;
+    padding: 0.35rem;
     border-radius: 1.2rem;
     background: rgb(255 255 255 / 0.08);
-    aspect-ratio: 1 / 1;
   }
 
   .daily-card__image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    object-fit: contain;
+    display: block;
   }
 
   .daily-card__meta {
     display: grid;
-    gap: 0.38rem;
+    gap: 0.28rem;
   }
 
   .daily-card__badge {
@@ -668,29 +665,8 @@
   .daily-card__meta h3 {
     margin: 0;
     color: rgb(247 250 255);
-    font-size: 1.28rem;
+    font-size: 1.05rem;
     line-height: 1;
-  }
-
-  .daily-card__meta p {
-    margin: 0;
-    color: rgb(189 209 238);
-    line-height: 1.58;
-  }
-
-  .daily-design__footer {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0.65rem 1.2rem;
-    padding-inline: 0.2rem;
-    color: rgb(174 198 232);
-    font-family: "SFMono-Regular", "Consolas", "Courier New", monospace;
-    font-size: 0.76rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
   }
 
   .hero-sidebar::before {

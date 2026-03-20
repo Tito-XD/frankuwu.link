@@ -29,10 +29,6 @@ const latest = dailyEntries[0];
       <div class="daily-design__header">
         <p class="section-kicker">Daily Design</p>
         <h2>{latest.label}</h2>
-        <p>
-          Latest check-in stays in front, while the earlier day peeks out behind
-          it so visitors know there is a trail to flip through.
-        </p>
       </div>
 
       <div class="daily-design__viewport">
@@ -57,24 +53,12 @@ const latest = dailyEntries[0];
               </div>
 
               <div class="daily-card__meta">
-                <span class="daily-card__badge">
-                  {index === 0 ? "Latest Drop" : "Archive Peek"}
-                </span>
+                <span class="daily-card__badge">{entry.label}</span>
                 <h3>{entry.label}</h3>
-                <p>
-                  {index === 0
-                    ? "Freshest daily design pinned up front."
-                    : "Pull sideways to keep moving backward through the run."}
-                </p>
               </div>
             </article>
           ))}
         </div>
-      </div>
-
-      <div class="daily-design__footer">
-        <span>{dailyEntries.length} days loaded</span>
-        <span>scroll sideways for older drops</span>
       </div>
     </section>
   ) : null
