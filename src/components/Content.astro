@@ -1,10 +1,7 @@
 ---
 import { SITE } from "@/siteConfig";
 
-import ArtworkDeck from "@/components/ArtworkDeck.astro";
-import CustomLink from "@/components/CustomLink.astro";
 import DailyDesign from "@/components/DailyDesign.astro";
-import IconLink from "@/components/IconLink.astro";
 import Introduction from "@/components/Introduction.astro";
 import SocialSignals from "@/components/SocialSignals.astro";
 ---
@@ -34,38 +31,12 @@ import SocialSignals from "@/components/SocialSignals.astro";
 
       <div class="hero-sidebar">
         <Introduction />
-
-        {
-          SITE.iconLinks.length ? (
-            <ul class="social-grid">
-              {SITE.iconLinks.map((link) => (
-                <IconLink url={link.url} icon={link.icon} />
-              ))}
-            </ul>
-          ) : null
-        }
-
-        {
-          SITE.customLinks.length ? (
-            <div class="terminal-links">
-              <p class="section-kicker">Links</p>
-              <ul class="command-grid">
-                {SITE.customLinks.map((link) => (
-                  <CustomLink url={link.url}>{link.title}</CustomLink>
-                ))}
-              </ul>
-            </div>
-          ) : null
-        }
+        <SocialSignals />
       </div>
 
       <DailyDesign />
     </div>
   </section>
-
-  <SocialSignals />
-
-  <ArtworkDeck />
 </section>
 
 <script>

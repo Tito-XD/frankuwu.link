@@ -1,103 +1,59 @@
 ---
 import { SITE } from "@/siteConfig";
 
+const xProfileUrl = SITE.iconLinks.find((link) => link.icon === "x")?.url ?? "https://x.com/FrankUwu71426";
+
 const socialFeeds = [
   {
-    platform: "X / Archive Feed",
+    platform: "X",
     handle: "@FrankUwu71426",
-    url: "https://x.com/FrankUwu71426",
-    summary:
-      "Furry art, Splatoon energy, drawing and design practice, plus small playful things in progress.",
-    meta: ["503 posts", "3K followers", "246 following", "7K likes"],
-    notes: [
+    url: xProfileUrl,
+    summary: "Furry art, Splatoon energy, and small playful updates in one running feed.",
+    links: [
       {
-        label: "来一起滑雪吧 : 深井南极冰",
-        url: "https://x.com/FrankUwu71426",
-      },
-      {
-        label: "X #Splatoon3",
-        url: "https://x.com/FrankUwu71426",
-      },
-      {
-        label: "玩玩 paper",
-        url: "https://x.com/FrankUwu71426",
+        label: "Open profile",
+        url: xProfileUrl,
       },
     ],
-    source: "verified snapshot",
   },
   {
-    platform: "Xiaohongshu / Linked Profile",
+    platform: "Xiaohongshu",
     handle: "Frank uwu",
     url: "https://www.xiaohongshu.com/user/profile/623d64d600000000100067bb",
-    summary:
-      "Short-form art posts, playful updates, and illustration-side experiments connected to the same-name account linked from X.",
-    meta: ["same-name account", "art notes", "process drops"],
-    notes: SITE.customLinks.map((link) => ({
+    summary: "Design check-ins and recent illustration posts collected from the linked account.",
+    links: SITE.customLinks.map((link) => ({
       label: link.title,
       url: link.url,
     })),
-    source: "linked profile",
   },
 ];
 ---
 
-<section
-  class="signal-section liquid-island liquid-island--signals"
-  id="signals"
-  data-liquid-island
->
-  <div class="signal-heading">
-    <p class="section-kicker">Glass Signals</p>
-    <h2>Recent traces from the linked profiles.</h2>
-    <p>
-      I pulled the profile cues that were easy to verify and turned them into a
-      cleaner signal board, so the site hints at the live accounts without
-      making the homepage feel like a crowded embed wall.
-    </p>
-  </div>
+<section class="profile-stack" aria-label="Linked profiles">
+  {
+    socialFeeds.map((feed) => (
+      <article class="profile-card">
+        <div class="profile-card__header">
+          <div>
+            <p class="section-kicker">{feed.platform}</p>
+            <h2 class="profile-card__title">{feed.handle}</h2>
+          </div>
+          <a href={feed.url} class="profile-card__cta" target="_blank" rel="noreferrer">
+            Open
+          </a>
+        </div>
 
-  <div class="signal-grid">
-    {
-      socialFeeds.map((feed) => (
-        <article class="signal-card">
-          <div class="signal-card__header">
-            <div>
-              <p class="section-kicker">{feed.platform}</p>
-              <h3>{feed.handle}</h3>
-            </div>
-            <a
-              href={feed.url}
-              class="signal-card__cta"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open
+        <p class="profile-card__summary">{feed.summary}</p>
+
+        <div class="profile-card__links">
+          {feed.links.map((item) => (
+            <a href={item.url} class="profile-chip" target="_blank" rel="noreferrer">
+              <span class="profile-chip__label">{item.label}</span>
+              <span class="profile-chip__suffix">&gt;&gt;</span>
             </a>
-          </div>
-
-          <p class="signal-card__summary">{feed.summary}</p>
-
-          <ul class="signal-card__meta">
-            {feed.meta.map((item) => <li>{item}</li>)}
-          </ul>
-
-          <div class="signal-card__notes">
-            {feed.notes.map((item) => (
-              <a
-                href={item.url}
-                class="signal-note"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span class="signal-note__dot" aria-hidden="true"></span>
-                <p>{item.label}</p>
-              </a>
-            ))}
-          </div>
-
-          <p class="signal-card__source">Source: {feed.source}</p>
-        </article>
-      ))
-    }
-  </div>
+          ))}
+        </div>
+      </article>
+    ))
+  }
 </section>
