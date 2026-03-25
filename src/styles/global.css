@@ -590,83 +590,106 @@
     letter-spacing: -0.03em;
   }
 
-  .daily-design__viewport {
+  /* ── Hero image: latest day, full portrait, no crop ── */
+  .daily-hero {
     position: relative;
     z-index: 1;
-    overflow-x: auto;
-    padding: 0.25rem 0 0.35rem;
-    scrollbar-width: thin;
-    scrollbar-color: rgb(199 225 255 / 0.35) transparent;
-  }
-
-  .daily-design__track {
-    display: flex;
-    gap: 1rem;
-    width: max-content;
-    min-width: 100%;
-    padding-right: 2rem;
-  }
-
-  .daily-card {
-    position: relative;
+    border-radius: 1.4rem;
     overflow: hidden;
-    flex: 0 0 clamp(18rem, 34vw, 24rem);
-    display: grid;
-    gap: 0.85rem;
-    padding: 0.8rem;
-    border: 1px solid rgb(255 255 255 / 0.22);
-    border-radius: 1.6rem;
-    background: linear-gradient(180deg, rgb(235 244 255 / 0.22), rgb(219 232 255 / 0.12));
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.18);
     box-shadow:
-      0 18px 34px rgb(7 18 49 / 0.26),
-      inset 0 1px 0 rgb(255 255 255 / 0.22);
+      0 18px 36px rgb(7 18 49 / 0.3),
+      inset 0 1px 0 rgb(255 255 255 / 0.2);
   }
 
-  .daily-card--latest {
-    flex-basis: clamp(22rem, 42vw, 29rem);
-  }
-
-  .daily-card__visual {
-    position: relative;
-    overflow: hidden;
-    display: grid;
-    place-items: center;
-    padding: 0.35rem;
-    border-radius: 1.2rem;
-    background: rgb(255 255 255 / 0.08);
-  }
-
-  .daily-card__image {
+  .daily-hero__image {
+    display: block;
     width: 100%;
     height: auto;
     object-fit: contain;
-    display: block;
+    border-radius: inherit;
   }
 
-  .daily-card__meta {
-    display: grid;
-    gap: 0.28rem;
-  }
-
-  .daily-card__badge {
+  .daily-hero__badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
     display: inline-flex;
-    width: fit-content;
-    padding: 0.34rem 0.68rem;
-    border: 1px solid rgb(255 255 255 / 0.22);
+    align-items: center;
+    padding: 0.36rem 0.72rem;
+    border: 1px solid rgb(255 255 255 / 0.3);
     border-radius: 999px;
-    background: rgb(255 255 255 / 0.12);
+    background: rgb(0 10 40 / 0.48);
     color: rgb(238 245 255);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+  }
+
+  /* ── Thumbnail strip: all other days, scrollable, no crop ── */
+  .daily-strip__scroll {
+    position: relative;
+    z-index: 1;
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(199 225 255 / 0.32) transparent;
+  }
+
+  .daily-strip {
+    display: flex;
+    gap: 0.65rem;
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .daily-thumb {
+    position: relative;
+    flex: 0 0 clamp(6.5rem, 14vw, 9.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.42rem;
+    padding: 0.45rem;
+    border: 1px solid rgb(255 255 255 / 0.2);
+    border-radius: 1.1rem;
+    background: linear-gradient(180deg, rgb(235 244 255 / 0.18), rgb(219 232 255 / 0.08));
+    box-shadow:
+      0 10px 22px rgb(7 18 49 / 0.22),
+      inset 0 1px 0 rgb(255 255 255 / 0.18);
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .daily-thumb:hover {
+    transform: translateY(-2px);
+    border-color: rgb(255 255 255 / 0.44);
+    box-shadow:
+      0 16px 28px rgb(7 18 49 / 0.3),
+      inset 0 1px 0 rgb(255 255 255 / 0.24);
+  }
+
+  .daily-thumb__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0.7rem;
+  }
+
+  .daily-thumb__label {
+    display: block;
+    text-align: center;
+    color: rgb(199 225 255 / 0.82);
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-  }
-
-  .daily-card__meta h3 {
-    margin: 0;
-    color: rgb(247 250 255);
-    font-size: 1.05rem;
-    line-height: 1;
   }
 
   .hero-sidebar::before {

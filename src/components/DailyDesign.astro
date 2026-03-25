@@ -21,6 +21,7 @@ const dailyEntries = Object.entries(dailyImages)
   .sort((a, b) => b.day - a.day);
 
 const latest = dailyEntries[0];
+const rest = dailyEntries.slice(1);
 ---
 
 {
@@ -31,35 +32,39 @@ const latest = dailyEntries[0];
         <h2>{latest.label}</h2>
       </div>
 
-      <div class="daily-design__viewport">
-        <div class="daily-design__track">
-          {dailyEntries.map((entry, index) => (
-            <article
-              class:list={[
-                "daily-card",
-                index === 0 && "daily-card--latest",
-                index === 1 && "daily-card--peek",
-              ]}
-            >
-              <div class="daily-card__visual">
+      {/* Hero: latest image displayed fully, no crop */}
+      <div class="daily-hero">
+        <Image
+          src={latest.image}
+          alt={`${latest.label} design check-in`}
+          width={900}
+          height={1200}
+          loading="eager"
+          class="daily-hero__image"
+        />
+        <div class="daily-hero__badge">{latest.label}</div>
+      </div>
+
+      {/* Thumbnail strip: all previous days */}
+      {rest.length > 0 && (
+        <div class="daily-strip__scroll">
+          <div class="daily-strip">
+            {rest.map((entry) => (
+              <div class="daily-thumb">
                 <Image
                   src={entry.image}
                   alt={`${entry.label} design check-in`}
-                  width={900}
-                  height={900}
-                  loading={index === 0 ? "eager" : "lazy"}
-                  class="daily-card__image"
+                  width={400}
+                  height={534}
+                  loading="lazy"
+                  class="daily-thumb__image"
                 />
+                <span class="daily-thumb__label">{entry.label}</span>
               </div>
-
-              <div class="daily-card__meta">
-                <span class="daily-card__badge">{entry.label}</span>
-                <h3>{entry.label}</h3>
-              </div>
-            </article>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </section>
   ) : null
 }
