@@ -447,30 +447,20 @@
     overflow: hidden;
     background: rgb(var(--ice-100) / 0.4);
     border: 1px solid rgb(var(--ice-200) / 0.5);
-    max-height: clamp(24rem, 50vh, 36rem);
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .daily-hero__slide {
     display: none;
-    width: 100%;
-    height: 100%;
   }
 
   .daily-hero__slide--active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
   }
 
   .daily-hero__image {
     display: block;
-    max-width: 100%;
-    max-height: clamp(24rem, 50vh, 36rem);
-    width: auto;
-    height: auto;
+    width: 100%;
+    max-height: clamp(28rem, 55vh, 40rem);
     object-fit: contain;
   }
 
