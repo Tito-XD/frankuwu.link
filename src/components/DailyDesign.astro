@@ -20,51 +20,115 @@ const dailyEntries = Object.entries(dailyImages)
   .filter((entry) => entry.day > 0)
   .sort((a, b) => b.day - a.day);
 
-const latest = dailyEntries[0];
-const rest = dailyEntries.slice(1);
+const selectedIndex = 0;
 ---
 
 {
-  latest ? (
-    <section class="daily-design">
+  dailyEntries.length > 0 ? (
+    <section class="daily-design" id="daily-design">
       <div class="daily-design__header">
         <p class="section-kicker">Daily Design</p>
-        <h2>{latest.label}</h2>
+        <h2>{dailyEntries[selectedIndex].label}</h2>
       </div>
 
-      {/* Hero: latest image displayed fully, no crop */}
-      <div class="daily-hero">
-        <Image
-          src={latest.image}
-          alt={`${latest.label} design check-in`}
-          width={900}
-          height={1200}
-          loading="eager"
-          class="daily-hero__image"
-        />
-        <div class="daily-hero__badge">{latest.label}</div>
+      {/* Main featured image — shows selected day fully without crop */}
+      <div class="daily-hero" id="daily-hero">
+        {dailyEntries.map((entry, i) => (
+          <div
+            class:list={["daily-hero__slide", i === selectedIndex && "daily-hero__slide--active"]}
+            data-day={entry.day}
+          >
+            <Image
+              src={entry.image}
+              alt={`${entry.label} design check-in`}
+              width={900}
+              height={1200}
+              loading={i === selectedIndex ? "eager" : "lazy"}
+              class="daily-hero__image"
+            />
+          </div>
+        ))}
       </div>
 
-      {/* Thumbnail strip: all previous days */}
-      {rest.length > 0 && (
-        <div class="daily-strip__scroll">
+      {/* Thumbnail strip — ALL days shown, with scroll arrows */}
+      <div class="daily-strip-wrap">
+        <button class="daily-strip__arrow daily-strip__arrow--left" aria-label="Scroll left" id="strip-left">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <div class="daily-strip__scroll" id="strip-scroll">
           <div class="daily-strip">
-            {rest.map((entry) => (
-              <div class="daily-thumb">
+            {dailyEntries.map((entry, i) => (
+              <button
+                class:list={[
+                  "daily-thumb",
+                  i === selectedIndex && "daily-thumb--active",
+                ]}
+                data-day={entry.day}
+                data-index={i}
+                aria-label={`View ${entry.label}`}
+              >
                 <Image
                   src={entry.image}
-                  alt={`${entry.label} design check-in`}
-                  width={400}
-                  height={534}
+                  alt={entry.label}
+                  width={200}
+                  height={267}
                   loading="lazy"
                   class="daily-thumb__image"
                 />
                 <span class="daily-thumb__label">{entry.label}</span>
-              </div>
+              </button>
             ))}
           </div>
         </div>
-      )}
+
+        <button class="daily-strip__arrow daily-strip__arrow--right" aria-label="Scroll right" id="strip-right">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
     </section>
   ) : null
 }
+
+<script>
+  // Click thumbnail to switch hero image
+  const thumbs = document.querySelectorAll<HTMLButtonElement>(".daily-thumb");
+  const slides = document.querySelectorAll<HTMLDivElement>(".daily-hero__slide");
+  const heading = document.querySelector<HTMLHeadingElement>(".daily-design__header h2");
+
+  thumbs.forEach((thumb) => {
+    thumb.addEventListener("click", () => {
+      const day = thumb.dataset.day;
+      const idx = Number(thumb.dataset.index);
+
+      // Update active thumb
+      thumbs.forEach((t) => t.classList.remove("daily-thumb--active"));
+      thumb.classList.add("daily-thumb--active");
+
+      // Update hero slide
+      slides.forEach((s) => s.classList.remove("daily-hero__slide--active"));
+      const target = [...slides].find((s) => s.dataset.day === day);
+      if (target) target.classList.add("daily-hero__slide--active");
+
+      // Update heading
+      if (heading) {
+        heading.textContent = `Day ${String(day).padStart(2, "0")}`;
+      }
+    });
+  });
+
+  // Scroll arrows
+  const strip = document.getElementById("strip-scroll");
+  const left = document.getElementById("strip-left");
+  const right = document.getElementById("strip-right");
+
+  if (strip && left && right) {
+    const scrollBy = 200;
+    left.addEventListener("click", () => strip.scrollBy({ left: -scrollBy, behavior: "smooth" }));
+    right.addEventListener("click", () => strip.scrollBy({ left: scrollBy, behavior: "smooth" }));
+  }
+</script>

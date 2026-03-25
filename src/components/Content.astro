@@ -7,43 +7,13 @@ import DailyDesign from "@/components/DailyDesign.astro";
 import IconLink from "@/components/IconLink.astro";
 import Introduction from "@/components/Introduction.astro";
 import SocialSignals from "@/components/SocialSignals.astro";
-
-const diagnostics = [
-  "STR: READY",
-  "WEP: STICK",
-  "DEC: CLEAN",
-  "DATASET: LOCAL",
-];
 ---
 
 <section class="portfolio-shell">
   <div class="ambient-orb ambient-orb--one" aria-hidden="true"></div>
   <div class="ambient-orb ambient-orb--two" aria-hidden="true"></div>
-  <div class="ambient-orb ambient-orb--three" aria-hidden="true"></div>
-  <div class="hud-frame hud-frame--outer" aria-hidden="true"></div>
-  <div class="hud-frame hud-frame--inner" aria-hidden="true"></div>
-
-  <div class="shell-topbar">
-    <div>
-      <div class="status-cluster" aria-hidden="true">
-        <span class="status-pill">SCAN</span>
-        <span class="status-pill">LINK</span>
-        <span class="status-pill">WEB</span>
-        <span class="status-dot"></span>
-      </div>
-      <p class="system-note">TERMINAL MODEL: LOCAL PROFILE NODE</p>
-    </div>
-
-    <div class="status-clock" aria-label="interface status">
-      <span class="status-clock__stamp">NODE-01</span>
-      <span class="status-clock__mark" aria-hidden="true"></span>
-    </div>
-  </div>
 
   <section class="hero-panel liquid-island liquid-island--hero" data-liquid-island>
-    <div class="hero-panel__halo hero-panel__halo--large" aria-hidden="true"></div>
-    <div class="hero-panel__halo hero-panel__halo--small" aria-hidden="true"></div>
-
     <div class="hero-grid">
       <div class="scan-module">
         <div class="scan-module__frame">
@@ -60,11 +30,6 @@ const diagnostics = [
             />
           </div>
         </div>
-        <p class="scan-module__title">Facial Archive</p>
-        <p class="scan-module__sub">
-          Primary portrait slot for the homepage shell. The scan frame stays
-          clean, so future image swaps will not collide with decorative copy.
-        </p>
       </div>
 
       <div class="hero-sidebar">
@@ -83,7 +48,7 @@ const diagnostics = [
         {
           SITE.customLinks.length ? (
             <div class="terminal-links">
-              <p class="section-kicker">Open Channels</p>
+              <p class="section-kicker">Links</p>
               <ul class="command-grid">
                 {SITE.customLinks.map((link) => (
                   <CustomLink url={link.url}>{link.title}</CustomLink>
@@ -96,17 +61,11 @@ const diagnostics = [
 
       <DailyDesign />
     </div>
-
-    <div class="hero-panel__fingerprint" aria-hidden="true"></div>
   </section>
 
   <SocialSignals />
 
   <ArtworkDeck />
-
-  <div class="diagnostic-bar" aria-label="diagnostic notes">
-    {diagnostics.map((item) => <span>{item}</span>)}
-  </div>
 </section>
 
 <script>

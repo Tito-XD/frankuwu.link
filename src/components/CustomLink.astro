@@ -3,8 +3,7 @@ const { url } = Astro.props;
 ---
 
 <li>
-  <a href={url} class="command-link">
-    <span class="command-link__prefix">PORT</span>
+  <a href={url} class="command-link" target="_blank" rel="noreferrer">
     <span class="command-link__label"><slot /></span>
     <span class="command-link__suffix">&gt;&gt;</span>
   </a>

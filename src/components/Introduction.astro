@@ -5,35 +5,6 @@ const displayName = SITE.name.replace(/(?:'s)?\s*link\s*space/i, "").trim();
 ---
 
 <div class="identity-card">
-  <p class="identity-card__eyebrow">User ID</p>
   <h1 class="identity-card__name">{displayName || SITE.name}</h1>
-  <div class="identity-card__rule"></div>
-
-  <div class="identity-card__meta">
-    <div>
-      <span class="identity-card__label">Identity Note</span>
-      <p>{SITE.bio}</p>
-    </div>
-
-    <div>
-      <span class="identity-card__label">Current Focus</span>
-      <p>
-        A portfolio-first landing page for artworks, motion fragments, and a
-        cleaner interface shell inspired by archival terminal graphics.
-      </p>
-    </div>
-
-    <div class="identity-card__access">
-      <span class="identity-card__label">Access Note</span>
-      <div class="identity-card__flags" aria-label="interface notes">
-        <span class="identity-card__flag">Clean Copy</span>
-        <span class="identity-card__flag">Local Preview</span>
-        <span class="identity-card__flag">No Placeholder</span>
-      </div>
-      <p class="identity-card__hint">
-        Decorative labels stay separated on purpose, so nothing stacks into
-        unreadable filler text when the layout gets denser later on.
-      </p>
-    </div>
-  </div>
+  <p class="identity-card__bio">{SITE.bio}</p>
 </div>
