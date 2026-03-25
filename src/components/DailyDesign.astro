@@ -8,7 +8,7 @@ const dailyImages = import.meta.glob("../assets/daily-30/*.{png,jpg,jpeg,webp}",
 
 const dailyEntries = Object.entries(dailyImages)
   .map(([path, image]) => {
-    const match = path.match(/(\d+)/);
+    const match = path.match(/Day-(\d+)\./i);
     const day = match ? Number(match[1]) : 0;
 
     return {
