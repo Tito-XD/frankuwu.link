@@ -1,19 +1,22 @@
 ---
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
-const dailyImages = import.meta.glob("../assets/daily-30/*.{png,jpg,jpeg,webp}", {
-  eager: true,
-  import: "default",
-});
+const dailyImages = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/daily-30/*.{png,jpg,jpeg,webp}",
+  {
+    eager: true,
+  },
+);
 
 const dailyEntries = Object.entries(dailyImages)
-  .map(([path, image]) => {
+  .map(([path, imageModule]) => {
     const match = path.match(/Day-(\d+)\./i);
     const day = match ? Number(match[1]) : 0;
 
     return {
       day,
-      image,
+      image: imageModule.default,
       label: `Day ${String(day).padStart(2, "0")}`,
     };
   })
@@ -52,7 +55,12 @@ const selectedIndex = 0;
 
       {/* Thumbnail strip — ALL days shown, with scroll arrows */}
       <div class="daily-strip-wrap">
-        <button class="daily-strip__arrow daily-strip__arrow--left" aria-label="Scroll left" id="strip-left">
+        <button
+          type="button"
+          class="daily-strip__arrow daily-strip__arrow--left"
+          aria-label="Scroll left"
+          id="strip-left"
+        >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -62,6 +70,7 @@ const selectedIndex = 0;
           <div class="daily-strip">
             {dailyEntries.map((entry, i) => (
               <button
+                type="button"
                 class:list={[
                   "daily-thumb",
                   i === selectedIndex && "daily-thumb--active",
@@ -69,6 +78,7 @@ const selectedIndex = 0;
                 data-day={entry.day}
                 data-index={i}
                 aria-label={`View ${entry.label}`}
+                aria-pressed={i === selectedIndex ? "true" : "false"}
               >
                 <Image
                   src={entry.image}
@@ -84,7 +94,12 @@ const selectedIndex = 0;
           </div>
         </div>
 
-        <button class="daily-strip__arrow daily-strip__arrow--right" aria-label="Scroll right" id="strip-right">
+        <button
+          type="button"
+          class="daily-strip__arrow daily-strip__arrow--right"
+          aria-label="Scroll right"
+          id="strip-right"
+        >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -103,11 +118,14 @@ const selectedIndex = 0;
   thumbs.forEach((thumb) => {
     thumb.addEventListener("click", () => {
       const day = thumb.dataset.day;
-      const idx = Number(thumb.dataset.index);
 
       // Update active thumb
-      thumbs.forEach((t) => t.classList.remove("daily-thumb--active"));
+      thumbs.forEach((t) => {
+        t.classList.remove("daily-thumb--active");
+        t.setAttribute("aria-pressed", "false");
+      });
       thumb.classList.add("daily-thumb--active");
+      thumb.setAttribute("aria-pressed", "true");
 
       // Update hero slide
       slides.forEach((s) => s.classList.remove("daily-hero__slide--active"));
@@ -118,6 +136,8 @@ const selectedIndex = 0;
       if (heading) {
         heading.textContent = `Day ${String(day).padStart(2, "0")}`;
       }
+
+      thumb.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
     });
   });
 
@@ -126,9 +146,10 @@ const selectedIndex = 0;
   const left = document.getElementById("strip-left");
   const right = document.getElementById("strip-right");
 
-  if (strip && left && right) {
-    const scrollBy = 200;
-    left.addEventListener("click", () => strip.scrollBy({ left: -scrollBy, behavior: "smooth" }));
-    right.addEventListener("click", () => strip.scrollBy({ left: scrollBy, behavior: "smooth" }));
+  if (strip instanceof HTMLElement && left instanceof HTMLButtonElement && right instanceof HTMLButtonElement) {
+    const scrollByAmount = () => Math.round(strip.clientWidth * 0.72);
+
+    left.addEventListener("click", () => strip.scrollBy({ left: -scrollByAmount(), behavior: "smooth" }));
+    right.addEventListener("click", () => strip.scrollBy({ left: scrollByAmount(), behavior: "smooth" }));
   }
 </script>

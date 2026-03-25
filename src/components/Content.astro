@@ -26,7 +26,7 @@ import SocialSignals from "@/components/SocialSignals.astro";
               loading="eager"
               draggable="false"
               class="scan-module__image"
-              onerror="this.onerror=null;this.src='/avatar-frank-tiger.svg';"
+              data-fallback-src="/avatar-frank-tiger.svg"
             />
           </div>
         </div>
@@ -69,10 +69,24 @@ import SocialSignals from "@/components/SocialSignals.astro";
 </section>
 
 <script>
-  const islands = document.querySelectorAll("[data-liquid-island]");
+  const portrait = document.querySelector<HTMLImageElement>(".scan-module__image");
+
+  if (portrait) {
+    portrait.addEventListener(
+      "error",
+      () => {
+        const fallbackSrc = portrait.dataset.fallbackSrc;
+        if (!fallbackSrc) return;
+        portrait.src = fallbackSrc;
+      },
+      { once: true },
+    );
+  }
+
+  const islands = document.querySelectorAll<HTMLElement>("[data-liquid-island]");
 
   for (const island of islands) {
-    let frame = null;
+    let frame: number | null = null;
     let currentX = 50;
     let currentY = 50;
     let currentTiltX = 0;
@@ -106,7 +120,7 @@ import SocialSignals from "@/components/SocialSignals.astro";
       if (frame === null) frame = requestAnimationFrame(animate);
     };
 
-    island.addEventListener("pointermove", (event) => {
+    island.addEventListener("pointermove", (event: PointerEvent) => {
       const rect = island.getBoundingClientRect();
       const ratioX = (event.clientX - rect.left) / rect.width;
       const ratioY = (event.clientY - rect.top) / rect.height;
