@@ -35,11 +35,16 @@ const selectedIndex = 0;
       </div>
 
       {/* Main featured image — shows selected day fully without crop */}
-      <div class="daily-hero" id="daily-hero">
+      <div
+        class="daily-hero"
+        id="daily-hero"
+        style={`--daily-hero-aspect: ${dailyEntries[selectedIndex].image.width} / ${dailyEntries[selectedIndex].image.height};`}
+      >
         {dailyEntries.map((entry, i) => (
           <div
             class:list={["daily-hero__slide", i === selectedIndex && "daily-hero__slide--active"]}
             data-day={entry.day}
+            data-aspect={`${entry.image.width} / ${entry.image.height}`}
           >
             <Image
               src={entry.image}
@@ -111,6 +116,7 @@ const selectedIndex = 0;
 
 <script>
   // Click thumbnail to switch hero image
+  const hero = document.getElementById("daily-hero");
   const thumbs = document.querySelectorAll<HTMLButtonElement>(".daily-thumb");
   const slides = document.querySelectorAll<HTMLDivElement>(".daily-hero__slide");
   const heading = document.querySelector<HTMLHeadingElement>(".daily-design__header h2");
@@ -130,7 +136,13 @@ const selectedIndex = 0;
       // Update hero slide
       slides.forEach((s) => s.classList.remove("daily-hero__slide--active"));
       const target = [...slides].find((s) => s.dataset.day === day);
-      if (target) target.classList.add("daily-hero__slide--active");
+      if (target) {
+        target.classList.add("daily-hero__slide--active");
+        const aspect = target.dataset.aspect;
+        if (hero instanceof HTMLElement && aspect) {
+          hero.style.setProperty("--daily-hero-aspect", aspect);
+        }
+      }
 
       // Update heading
       if (heading) {
